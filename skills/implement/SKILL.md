@@ -4,11 +4,11 @@ description: "Implement a piece of work based on a PRD or set of issues."
 disable-model-invocation: true
 ---
 
-Implement the work described by the user in the PRD or issues.
+Implement the work described by the user in the spec or issues.
 
 Use /tdd where possible, at pre-agreed seams.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+Run typechecking regularly and single test files regularly.
 
 Once done, use /review to review the work.
 
