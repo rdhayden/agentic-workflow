@@ -48,7 +48,7 @@ RUNS_DIR = CONFIG_DIR / "runs"  # gitignored; holds the per-issue clones
 MODEL = "claude-opus-4-7"
 IMAGE = "pysolated:pysolated"
 AFK_LABEL = "ready-for-agent"  # HITL issues carry `ready-for-human` and are skipped
-MAX_PARALLEL = 4  # most sandboxes to run at once in a wave
+MAX_PARALLEL = 5  # most sandboxes to run at once in a wave
 MAX_ATTEMPTS = 2  # give up on an issue after this many failed waves
 
 # Load credentials from .pysolated/.env (gitignored) into the host environment.

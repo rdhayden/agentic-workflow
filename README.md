@@ -5,8 +5,7 @@ This is a workflow for building features reliably with AI. It includes a set of 
 ## Setup
 
 Copy the skills folder to the project .claude folder if using Claude or .agents if using another model
-Run `/setup-workflow-skills` to configure AGENTS.md or CLAUDE.md with the issue tracker, triage labels, 
-and where the model should read and write vocabulary and architecture design records
+Run `/setup-workflow-skills` to configure AGENTS.md or CLAUDE.md with the issue tracker, triage labels, and where the model should read and write vocabulary and architecture design records
 
 Note many of the skills were originally sourced from https://github.com/mattpocock/skills/ which in turn encapsulate practices from The Pragmatic Programmer and philosophies for engineering with AI that I've heard people like Dex Horthy from human layer describe as well. It also layers in some review agents recast as skills from https://github.com/EveryInc/compound-engineering-plugin/. The content from both sources have been modified a little to work well with this workflow and augmented with a sandboxing library and example scripts that automate parts of the dev process to maximise efficiency.
 
@@ -43,9 +42,11 @@ Note it may create a verbose skill, you may want to edit it down for brevity aft
 
 While not part of the feature creation workflow you may also want to run `/improve-codebase-architecture` regularly, perhaps weekly depending on the size of the codebase. 
 
-You could wire it into the CI flow so it runs with every merge of production code, but on large codebases that may unnecesarily burn tokens. Read the skill to see what it does, it mainly deepens modules which is a way to clarify critical test boundaries and make the purpose of each module in the wider architecture  easier to comprehend. That makes it both easier for the user to evaluate the test suite in PR/MR reviews and for the AI to understand the codebase which in turn leads to better code. 
+You could wire it into the CI flow so it runs with every merge of production code, but on large codebases that may unnecesarily burn tokens. Read the skill to see what it does, it essentially deepens modules, that is, it ensures that a relatively sparse interface hides a lot of implementation. For example, you may have an auth module which takes user details but under the hood contacts third parties, perhaps validates login limits, logs access and other more. The interface just asks for the minimum amount of details required to authorise and authenticate, the module contains a lot of more implementation. So the interface is relatively shallow but the implementation is deep.
 
-It's not magic and doesn't entirely replace thinking about architecture more broadly, although additional architecture skills are likely to be a useful and may be added as this workflow evolves.
+By looking for opportunities to deep modules this skill is essentially improving encapsulation and in doing so it makes it easier for both people and AI agents to comprehend what the purpose of each module in the wider architecture is, where the critical test boundaries are and what functionality should be tested. That avoids creating thousands of low level tests whose purpose is hard to understand, which makes it easier for the user to evaluate the test suite in PR/MR reviews and for the AI to understand the codebase which in turn leads to better code. 
+
+It's not magic and doesn't entirely replace thinking about architecture more broadly, although additional architecture skills are likely to be useful going forward and may be added as this workflow evolves.
 
 ## Learning a new codebase
 
@@ -113,22 +114,18 @@ Then returns some text sequence when there are no more issues that is used to te
 
 #### Automated iteration with pysolated or sandcastle
 
-Pysolated (Python based) and Sandcastle (Typescript based) can spin up several different types of 
-sandbox (e.g. docker, podman, vercel ...) and execute the implementation loop described above with your chosen coding agent.
+Pysolated (Python based) and Sandcastle (Typescript based) can spin up several different types of sandbox (e.g. docker, podman, vercel ...) and execute the implementation loop described above with your chosen coding agent.
 
-It can iteratively issue a prompt which selects the next task in the priority order above and returns
-one or more completion tags which can be used to terminate the loop or wait for a user to complete
-human in the loop dependencies
+It can iteratively issue a prompt which selects the next task in the priority order above and returns one or more completion tags which can be used to terminate the loop or wait for a user to complete human in the loop dependencies
 
 Pysolated can be found at https://pypi.org/project/pysolated/ or https://github.com/rdhayden/pysolated, simply install it into your project
 Sandcastle can be found at https://github.com/mattpocock/sandcastle
 
 See the .pysolated directory in this repo for an example implementation of the loop using podman as the sandbox
-
+.. Agent specific gui
 After installing Pysolated you need to initialise it first to create a Container file and other bits using `uv run pysolated init` 
 Then build the container image with `uv run pysolated podman build-image`
-Then make sure your main script and prompt reflect the loop you want to implement. The example main.py in
-the .pysolated folder implements issues in parralel where possible to minimise implementation time. See the README.md in the .pysolated folder for details of this example script
+Then make sure your main script and prompt reflect the loop you want to implement. The example main.py in the .pysolated folder implements issues in parralel where possible to minimise implementation time. See the README.md in the .pysolated folder for more details about what the example script des and how to use it
 
 #### Review
 

@@ -66,33 +66,11 @@ When designing an interface, ask:
 
 ## Designing for testability
 
-Good interfaces make testing natural:
+For examples of designing for testability in Python see [PYTHON-TESTABILITY-EXAMPLES.md](../_language-references/PYTHON-TESTABILITY-EXAMPLES.md)
 
-1. **Accept dependencies, don't create them.**
+For examples of designing for testability in Typescript see [TYPESCRIPT-TESTABILITY-EXAMPLES.md](../_language-references/TYPESCRIPT-TESTABILITY-EXAMPLES.md)
 
-   ```typescript
-   // Testable
-   function processOrder(order, paymentGateway) {}
-
-   // Hard to test
-   function processOrder(order) {
-     const gateway = new StripeGateway();
-   }
-   ```
-
-2. **Return results, don't produce side effects.**
-
-   ```typescript
-   // Testable
-   function calculateDiscount(cart): Discount {}
-
-   // Hard to test
-   function applyDiscount(cart): void {
-     cart.total -= discount;
-   }
-   ```
-
-3. **Small surface area.** Fewer methods = fewer tests needed. Fewer params = simpler test setup.
+For other languages see the Typescript examples and apply the same principles where possible
 
 ## Relationships
 

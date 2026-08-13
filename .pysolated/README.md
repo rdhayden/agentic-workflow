@@ -89,7 +89,7 @@ Tunable constants at the top of `main.py`:
 | `MODEL`        | `claude-opus-4-7`    | Coding model each sandbox runs.                    |
 | `IMAGE`        | `pysolated:pysolated`| Podman image tag (must match `build-image`).       |
 | `AFK_LABEL`    | `ready-for-agent`    | Label marking an issue as AFK-implementable.       |
-| `MAX_PARALLEL` | `4`                  | Most sandboxes to run at once in a wave.           |
+| `MAX_PARALLEL` | `5`                  | Most sandboxes to run at once in a wave.           |
 | `MAX_ATTEMPTS` | `2`                  | Retries before an issue is skipped as stuck.       |
 
 ## Files

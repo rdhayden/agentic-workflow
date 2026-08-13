@@ -30,6 +30,9 @@ Complete the task using the tdd skill.
 
 Before committing, run the feedback loops:
 
+- use the adversarial-code-reviewer agent to surface problems in the code and implement changes to address the problems, and update tests as appropriate
+- use the api-contract-reviewer agent to surface API contract problems, if it is possible to resolve these automatically without compromising any functionality recently implement then implement changes to address the problems, if any problems cannot be resolved such as necesary breaking changes that must be communicated to consumers, create a pull request on this issue that details the problem for a human to review before the issue can be closed
+- use the correctness-reviewer agent to surface logic and behavioural issues in the code and implement changes to address the problems, and update tests as appropriate
 - run tests for any files that have changed
 - run mypy in strict mode for the files that have changed
 - run ruff to check formatting and linting for files that have changed

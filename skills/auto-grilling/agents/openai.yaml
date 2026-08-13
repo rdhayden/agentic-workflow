@@ -1,0 +1,3 @@
+interface:
+  display_name: "Auto-Grilling"
+  short_description: "Commit changes and generate review tickets for the user to review the architecture, tests and functionality"
